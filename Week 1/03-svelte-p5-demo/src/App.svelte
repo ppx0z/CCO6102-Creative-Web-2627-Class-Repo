@@ -31,7 +31,7 @@
     let direction = 1;
 
     p.setup = () => {
-      p.createCanvas(500, 300);
+      p.createCanvas(500, 500);
       p.colorMode(p.HSB, 360, 100, 100);
       p.noStroke();
       x = p.width / 2;
@@ -42,7 +42,7 @@
 
       x += speed * direction;
       if (x > p.width - circleSize / 2 || x < circleSize / 2) {
-        direction *= -1;
+        direction = -1;
       }
 
       p.fill(hue, 80, 90);

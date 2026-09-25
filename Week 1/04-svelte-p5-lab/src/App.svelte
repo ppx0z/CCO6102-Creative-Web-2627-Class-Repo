@@ -19,13 +19,9 @@
 
   // ---- Working example: size, already wired up ----
   let circleSize = $state(80);
-
-  // ---- Your turn: declare more $state variables below ----
-  // Ideas (pick at least one, see lab-instructions.md for more):
-  //   let numShapes = $state(1);
-  //   let shapeType = $state('circle'); // 'circle' | 'square'
-  //   let bgColor = $state('#141414');
-  //   let isSpinning = $state(false);
+  let numShapes = $state(1);
+  let shapeType = $state('circle');
+  let isSpinning = $state(false);
 
   function sketch(p) {
     p.setup = () => {
@@ -36,11 +32,21 @@
     p.draw = () => {
       p.background(20);
       p.fill(255);
-      p.circle(p.width / 2, p.height / 2, circleSize);
+      
 
-      // TODO: use your new $state variable(s) here.
-      // e.g. draw more than one shape, change background(), change
-      // fill() colour, rotate something — whatever you declared above.
+      
+      for (let i = 0; i < numShapes; i++) {
+        // Spacing calculations
+        let spacingX = 55;
+        let spacingY = 55;
+        
+      
+        let x = 50 + (i * spacingX) % (p.width - 100);
+        let y = 60 + Math.floor((i * spacingX) / (p.width - 100)) * spacingY;
+        
+      
+        p.circle(x, y, circleSize);
+      }
     };
   }
 </script>
@@ -57,6 +63,9 @@
 
     <!-- TODO: add more controls here, bound to the variables you
          declared above. Copy the pattern of the size slider. -->
+     Number of shapes
+      <input type="range" min="1" max="50" bind:value={numShapes} />
+      {numShapes}
   </div>
 
   <P5Canvas {sketch} />
