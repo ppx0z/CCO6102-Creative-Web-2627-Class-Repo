@@ -20,7 +20,14 @@
   }
 
   // TODO: add a decrement() function
+  function decrement(){
+    count -= 1;
+  }
+
   // TODO: add a reset() function
+  function reset (){
+    count=0;
+  }
 </script>
 
 <div class="example">
@@ -28,5 +35,7 @@
   <p>Count: {count}</p>
   <button onclick={increment}>Increment</button>
   <!-- TODO: add your decrement button here -->
+   <button onclick={decrement}>Decrement</button>
   <!-- TODO: add your reset button here -->
+   <button onclick={reset}>Reset</button>
 </div>
