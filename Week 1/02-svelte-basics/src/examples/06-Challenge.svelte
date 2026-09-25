@@ -11,6 +11,9 @@
 
   // TODO: write an increment() function that adds `step` to `count`
   //       instead of always adding 1.
+  function increment(){
+    count = step;
+  }
   // TODO: add an <input type="number" bind:value={step}> so the user
   //       can change the step size.
   // STRETCH: what happens if step is 0 or negative? Is that OK, or
@@ -21,4 +24,14 @@
   <h3>Challenge: step counter</h3>
   <p>Count: {count} (step size: {step})</p>
   <!-- TODO: your increment button and step-size input go here -->
+   <label>
+    Steps:
+    <input bind:value={step} placeholder="Type here..." />
+  </label>
+    <button onclick={increment}>Increment</button>
+   {#if step}
+    <p>You have {count} out of {step} steps!</p>
+  {:else}
+    <p>Waiting for you to type something...</p>
+  {/if}
 </div>
