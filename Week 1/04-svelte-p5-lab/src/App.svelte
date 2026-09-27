@@ -20,33 +20,30 @@
   // ---- Working example: size, already wired up ----
   let circleSize = $state(80);
   let numShapes = $state(1);
-  let shapeType = $state('circle');
-  let isSpinning = $state(false);
+  //let shapeType = $state('circle');
+  // let isSpinning = $state(false);
 
   function sketch(p) {
     p.setup = () => {
-      p.createCanvas(500, 300);
+      p.createCanvas(500, 400);
       p.noStroke();
     };
 
     p.draw = () => {
       p.background(20);
       p.fill(255);
-      
 
+      //loop to draw multiple shapes, based on the number of shapes variable
+      for (let i = 0; i < numShapes; i++)
+      {
+        //distributes circles horizontally across the canvas
+        let x = p.width * (i + 0.5) / numShapes;
+
+        //centers the circles 
+        p.circle(x, p.height / 2, circleSize);
+      } 
       
-      for (let i = 0; i < numShapes; i++) {
-        // Spacing calculations
-        let spacingX = 55;
-        let spacingY = 55;
-        
       
-        let x = 50 + (i * spacingX) % (p.width - 100);
-        let y = 60 + Math.floor((i * spacingX) / (p.width - 100)) * spacingY;
-        
-      
-        p.circle(x, y, circleSize);
-      }
     };
   }
 </script>
