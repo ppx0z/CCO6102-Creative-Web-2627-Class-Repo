@@ -19,18 +19,28 @@
   //   are the same waveform names Tone.js uses, which will matter
   //   later this session.
 
-  let { synthName, waveform = "sine" } = $props();
+  let { synthName, waveform = "sine", octave = 4, filterType = "lowpass" } = $props();
   let volume = $state(50);
-
   // TODO: add your new $state variable here
+  let waveformType = $state(waveform); // TODO: add your new $state variable here
 </script>
 
 <div class="demo lab">
   <h3>04 — Lab: extend this patch card</h3>
 
   <p>
-    <strong>{synthName}</strong> — waveform: <strong>{waveform}</strong>
+    <strong>{synthName}</strong> — waveform: <strong>{waveformType}</strong>
   </p>
+
+<label>
+    Waveform type:
+    <select bind:value={waveformType}>
+      <option value="sine">Sine</option>
+      <option value="square">Square</option>
+      <option value="sawtooth">Sawtooth</option>
+      <option value="triangle">Triangle</option>
+    </select>
+  </label>
 
   <label>
     Volume:
