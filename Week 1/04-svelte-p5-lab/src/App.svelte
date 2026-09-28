@@ -20,6 +20,7 @@
   // ---- Working example: size, already wired up ----
   let circleSize = $state(80);
   let numShapes = $state(1);
+  let backgroundColor = $state(1);
   //let shapeType = $state('circle');
   // let isSpinning = $state(false);
 
@@ -30,7 +31,7 @@
     };
 
     p.draw = () => {
-      p.background(20);
+      p.background(backgroundColor);
       p.fill(255);
 
       //loop to draw multiple shapes, based on the number of shapes variable
@@ -60,9 +61,18 @@
 
     <!-- TODO: add more controls here, bound to the variables you
          declared above. Copy the pattern of the size slider. -->
-     Number of shapes
-      <input type="range" min="1" max="50" bind:value={numShapes} />
-      {numShapes}
+      <label>
+        Number of shapes
+       <input type="range" min="1" max="50" bind:value={numShapes} />
+       {numShapes}
+     </label>
+
+      <label>
+        Background Color
+        <input type="range" min="1" max="50" bind:value={backgroundColor} />
+        {backgroundColor}
+
+      </label>
   </div>
 
   <P5Canvas {sketch} />
