@@ -13,10 +13,15 @@
     structure and conventions as Week 1's <code>02-svelte-basics</code>.
   </p>
 
-  <ReceivingProps name="Ada" favouriteColour="teal" />
+  <ReceivingProps name="LJ" favouriteColour="Red" animal="cat" animalName="Siopao" />
 
+  <!-- testing default values pt.1-->
+  <ReceivingProps name="LJ" favouriteColour="Red"/>
+
+  <!-- testing default values pt.2-->
   <DefaultProps />
-  <!-- try passing label="Kick drum sketch" stepCount={8} here too -->
+  <DefaultProps label="Kick drum sketch" stepCount={8} />
+
 
   <TextBinding />
 

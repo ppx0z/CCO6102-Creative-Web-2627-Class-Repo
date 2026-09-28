@@ -5,9 +5,8 @@
   // then destructure the names we want — same destructuring syntax as
   // any other JS object.
   
-  // let { name, favouriteColour } = $props();
-    let name="...?"
-    let favouriteColour="...?"
+   let { name , favouriteColour, animal = "dog", animalName = "Maxx"} = $props();
+
 </script>
 
 <div class="demo">
@@ -16,6 +15,8 @@
     Hello, <strong>{name}</strong>! Your favourite colour is
     <strong style="color: {favouriteColour}">{favouriteColour}</strong>.
   </p>
+  <p>Hello, {name}! You have a pet {animal} named {animalName}.</p>
+
   <p class="note">
     This component didn't invent "name" or "favouriteColour" — the parent
     (<code>App.svelte</code>) passed them in as attributes, the same way you'd
