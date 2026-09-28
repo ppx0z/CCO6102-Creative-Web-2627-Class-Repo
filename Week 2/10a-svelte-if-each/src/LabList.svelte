@@ -11,10 +11,10 @@
 	import LabFriendCard from './LabFriendCard.svelte';
 
 	let friends = $state([
-		{ name: 'Amara', favourite: true },
-		{ name: 'Ben', favourite: false },
-		{ name: 'Chloe', favourite: false },
-		{ name: 'Dev', favourite: true }
+		{ name: 'Bildge', favourite: true },
+		{ name: 'Izzlet', favourite: false },
+		{ name: 'Arbie', favourite: false },
+		{ name: 'Psalm', favourite: true }
 	]);
 
 	/** @param {{ name: string, favourite: boolean }} friend */
@@ -30,7 +30,7 @@
 			TODO 1: write an {#each} block here that loops over `friends`,
 			rendering one <LabFriendCard> per friend. Look at how
 			App.svelte renders <ToggleFriendCard> for the pattern.
-
+			
 			Pass two props to each <LabFriendCard>:
 			  - friend       → the friend object for this iteration
 			  - onToggle     → toggleFavourite (the function above)
@@ -39,6 +39,11 @@
 			(LabFriendCard.svelte isn't finished yet either — that's
 			TODO 2 and 3, in that file).
 		-->
+			<ul>
+		{#each friends as friend}
+			<LabFriendCard {friend} onToggle={toggleFavourite} />
+		{/each}
+			</ul>
 	</ul>
 </section>
 

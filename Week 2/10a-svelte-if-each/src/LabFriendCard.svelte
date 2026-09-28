@@ -6,8 +6,13 @@
 </script>
 
 <li>
-	{friend.name}
-
+	
+	{#if friend.favourite}
+		⭐ {friend.name} — favourite
+	{:else}
+		⚪ {friend.name} — not favourite
+	{/if}
+	<button onclick={() => onToggle(friend)}>Toggle</button>
 	<!--
 		TODO 2: replace the line above (or add alongside it) an
 		{#if friend.favourite} ... {:else} ... {/if} block that shows
@@ -21,6 +26,19 @@
 	-->
 </li>
 
+<style>
+	li {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.5rem 0;
+		border-bottom: 1px solid #eee;
+	}
+
+	button {
+		font-size: 0.85rem;
+	}
+</style>
 <!--
 	STRETCH CHALLENGE (once TODOs 1–3 are working):
 	Add a second function, passed down the same way as onToggle — call it
