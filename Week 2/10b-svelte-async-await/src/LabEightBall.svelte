@@ -14,15 +14,19 @@
 
 	/** @type {string | Promise<string>} */
 	let answer = $state('(ask a question)');
+	let loading = $state(false);
 
-	function askQuestion() {
-		answer = askThe8Ball();
+	async function askQuestion() {
+		loading = true;
+		answer =  await askThe8Ball();
+		loading = false;
+		
 	}
 </script>
 
 <section>
 	<h2>Lab — your turn: fix the magic 8-ball</h2>
-	<button onclick={askQuestion}>🎱 Ask the 8-ball</button>
+	<button onclick={askQuestion} disabled={loading}>{loading ? 'Shaking the ball…' : '🎱 Ask the 8-ball'}</button>
 	<p class="answer">{answer}</p>
 </section>
 
