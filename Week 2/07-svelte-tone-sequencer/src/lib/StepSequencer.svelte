@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
   // ── Svelte + Tone.js: a simple step sequencer ────────────────────
   //
   // Two clearly separate jobs in this file:
@@ -30,26 +32,37 @@
   import * as Tone from "tone";
 
   const STEP_COUNT = 8;
+  const TRACK_COUNT = 3;
+  const TRACK_NOTES = ["C4", "E4", "G4"];
 
-  let steps = $state(Array(STEP_COUNT).fill(false));
+  let steps = $state(
+    Array.from({length: TRACK_COUNT}, () => Array(STEP_COUNT).fill(false))
+  );
+
   let currentStep = $state(0);
   let playing = $state(false);
   let bpm = $state(120);
 
   /** @type {Tone.Synth} */
-  let synth;
+  const synths = [];
   /** @type {ReturnType<typeof setInterval> | null} */
   let intervalId = null;
 
   onMount(() => {
-    synth = new Tone.Synth({
-      envelope: { attack: 0.005, decay: 0.1, sustain: 0.1, release: 0.2 },
-    }).toDestination();
+    
+      const envelope = { attack: 0.005, decay: 0.1, sustain: 0.1, release: 0.2 };
+
+      synths.push(
+        new Tone.Synth({envelope}).toDestination(),
+        new Tone.Synth({envelope}).toDestination(),
+        new Tone.Synth({envelope}).toDestination(),
+
+      )
   });
 
   onDestroy(() => {
     stop();
-    synth?.dispose();
+    synths.forEach((s) => s.dispose());
   });
 
   function msPerStep() {
@@ -58,9 +71,11 @@
   }
 
   function tick() {
-    if (steps[currentStep]) {
-      synth.triggerAttackRelease("C4", "16n");
-    }
+    steps.forEach((track, t) => {
+      if (track[currentStep]) {
+        synths[t].triggerAttackRelease(TRACK_NOTES[t], "16n");
+      }
+    })
     currentStep = (currentStep + 1) % STEP_COUNT;
   }
 
@@ -83,8 +98,8 @@
     }
   }
 
-  function toggleStep(i) {
-    steps[i] = !steps[i];
+  function toggleStep(track, i) {
+    steps[track][i] = !steps[track][i];
   }
 
   // If bpm changes while playing, restart the interval at the new speed.
@@ -101,16 +116,21 @@
   <h3>Step sequencer</h3>
 
   <div class="grid">
-    {#each steps as on, i}
-      <button
+    {#each steps as track, t}
+      <div class="row">
+        {#each track as on, i}
+        <!-- svelte-ignore a11y_incorrect_aria_attribute_type_tristate -->
+        <button
         class="step"
-        class:on
-        class:playhead={playing && currentStep === i}
-        onclick={() => toggleStep(i)}
-        aria-pressed={on}
-      >
-        {i + 1}
-      </button>
+          class:on 
+          class:playhead={playing && currentStep === i}
+          onclick= {() => toggleStep(t,i)}
+          aria-pressed={on} 
+          >
+          {i + 1}
+        </button>
+        {/each}
+      </div>
     {/each}
   </div>
 
@@ -141,11 +161,15 @@
     text-align: center;
   }
   .grid {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 0.4rem;
-    margin: 1rem 0;
-  }
+  display: grid;
+  gap: 0.4rem;
+  margin: 1rem 0;
+}
+.row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.4rem;
+}
   .step {
     aspect-ratio: 1;
     border: 1px solid #ccc;
