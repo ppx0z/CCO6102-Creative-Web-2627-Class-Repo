@@ -34,3 +34,8 @@ export function create({ text, author }) {
 	ideas.push(idea);
 	return idea;
 }
+
+export function countIdeas() {
+	const count = {ideas: ideas.length};
+	return count;
+}
